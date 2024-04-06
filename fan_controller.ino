@@ -10,8 +10,9 @@ DHT* sensors[numSensors];
 
 void setup() {
   Serial.begin(9600);
-  // Set the pin for outputing.
+  // Set the pin for outputing, & turn it off immediately
   pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, HIGH);
   // Setup the sensors to be used
   for(int i = 0; i < numSensors; i++){
     // Create a new instance of each sensor.
@@ -32,7 +33,7 @@ void loop() {
     hip += hi; // accumulate the heat index 
   }
   hip = hip / (float)numSensors; // get the average of the sensors
-  // determine what to do with the relay module.
+  // determine what to do with the relay module. Works on inverse logic
   if(minHeatIndex <= hip){
     digitalWrite(relayPin, HIGH);
   } else {
